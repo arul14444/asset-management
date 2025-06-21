@@ -4,11 +4,13 @@ import React from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-bs5';
+import { useNavigate } from "react-router-dom";
 
 DataTable.use(DT);
 
 const TableLoaningApprover2AndReturner = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const {
     data: loaningData,
@@ -77,13 +79,18 @@ const TableLoaningApprover2AndReturner = () => {
               <td>{item.note ?? "-"}</td>
               <td>
                 {item.loaningStatusProcess === "Approved by Procurement" ? (
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => handleAction(item.id, 4)}
-                  >
-                    Return
-                  </button>
-                ) : (
+                    <button
+                      className="btn btn-sm btn-danger"
+                      onClick={() => navigate('/assetcondition', {
+                        state: {
+                          loaningId: item.id,
+                          assetName: item.assetName
+                        }
+                      })}
+                    >
+                      Return
+                    </button>
+                    ) : (
                   <>
                     <button
                       className="btn btn-primary me-2"
