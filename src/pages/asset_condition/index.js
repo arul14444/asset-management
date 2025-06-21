@@ -61,7 +61,7 @@ const AssetCondition = () => {
 
             await saveAllAssetCondition(loaningId, payload);
             alert('Asset Has Been Returned');
-            navigate('/asset')
+            navigate('/approver2-and-returner')
         } catch (err) {
             alert('An error occurred, please check the data again and resubmit');
         }
