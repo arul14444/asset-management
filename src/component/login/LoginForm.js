@@ -36,6 +36,7 @@ let LoginForm = () => {
 
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const [password, setPassword] = useState('');
 
   const {
     mutate: login,
@@ -53,20 +54,28 @@ let LoginForm = () => {
     const username = form.username.value;
     const password = form.password.value;
     login({ username, password });
+    setPassword(password);
   };
 
   useEffect(() => {
-    if (response && response.status === 'OK' && response.message === 'Login Success') {
-      setMessage(response.message);
-      // localStorage.setItem('isLoggedIn', 'true'); 
-      navigate("/dashboard");
-    } else if (response && response.status === 'OK' && response.message === 'Login Failed User Not Found') {
-      setMessage(response.message);
+    if(response){
+      
+      if (response.status === 'OK' && response.message === 'Login Success') {
+        console.log(response.data.name);
+        console.log(password);
+        sessionStorage.setItem('auth', btoa(response.data.name+':'+password));
+        setMessage(response.message);
+        navigate("/dashboard");
+      } else{
+        setMessage(response.message);
+        console.log(response.message);
+      }
     }
   }, [response, navigate]);
 
   useEffect(() => {
     if (error) {
+      console.log(error);
       setMessage("Login request error");
     }
   }, [error]);
