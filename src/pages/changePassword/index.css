@@ -1,11 +1,10 @@
-.registration-container {
+.change-password-container {
     background-color: #f8f9fa;
   }
   
-  .registration-card {
+  .change-password-card {
     width: 100%;
-    max-width: 450px;
+    max-width: 400px;
     border-radius: 1rem;
     background-color: #ffffff;
   }
-  
