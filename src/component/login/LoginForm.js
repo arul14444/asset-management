@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchLogin } from "../../service/userManagementService";
 import { useNavigate } from "react-router-dom"; 
 import { useMutation } from "@tanstack/react-query";
-
+import { Link } from "react-router-dom";
 
 let LoginForm = () => {
   // const [message, setMessage] = useState('');
@@ -56,14 +56,13 @@ let LoginForm = () => {
   };
 
   useEffect(() => {
-    
-      if (response && response.status === 'OK' && response.message === 'Login Success') {
-        setMessage(response.message);
-        navigate("/");
-      } else if (response && response.status === 'OK' && response.message === 'Login Failed User Not Found') {
-        setMessage(response.message);
-      }
-    
+    if (response && response.status === 'OK' && response.message === 'Login Success') {
+      setMessage(response.message);
+      // localStorage.setItem('isLoggedIn', 'true'); 
+      navigate("/dashboard");
+    } else if (response && response.status === 'OK' && response.message === 'Login Failed User Not Found') {
+      setMessage(response.message);
+    }
   }, [response, navigate]);
 
   useEffect(() => {
@@ -87,6 +86,13 @@ let LoginForm = () => {
           </div>
           <button type="submit" className="btn btn-primary w-100">Login</button>
         </form>
+        <div className="text-center mt-3">
+          <small>
+            <Link to="/changePassword" className="text-decoration-none">
+              Forgot password? Change it here
+            </Link>
+          </small>
+        </div>
         {message && <div className="alert alert-info mt-3 text-center">{message}</div>}
       </div>
     </div>

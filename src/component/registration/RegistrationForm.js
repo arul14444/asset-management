@@ -42,32 +42,39 @@ let RegistrationForm = () => {
   };
 
   return (
-    <div>
-      <h2>Registration</h2>
-      <form onSubmit={submit}>
-        <div>
-          <label>Name :</label>
-          <input type="text" name="name" required />
-        </div>
-        <div>
-          <label>Email :</label>
-          <input type="text" name="email" required />
-        </div>
-        {/* <div>
-          <label>Pilih Manager</label>
-          <select name="manager" required>
-          <option value="">-- Pilih Manager --</option>
-            {managers.map((manager) => (
-            <option key={manager.id} value={manager.id}>
-            {manager.username} - {manager.roleName}
-          </option>
-          ))}
-          </select>
-        </div> */}
-        <button type="submit">Register</button>
-      </form>
-      {message && <p>{message}</p>}
+    <div className="registration-container d-flex justify-content-center align-items-center vh-100">
+      <div className="card p-4 shadow registration-card">
+        <h2 className="text-center mb-4">Employee Registration</h2>
+        <form onSubmit={submit}>
+          <div className="mb-3">
+            <label className="form-label">Name:</label>
+            <input type="text" name="name" className="form-control" required />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Email:</label>
+            <input type="text" name="email" className="form-control" required />
+          </div>
+
+          {/* 
+          <div className="mb-3">
+            <label className="form-label">Choose Manager:</label>
+            <select name="manager" className="form-select" required>
+              <option value="">-- Select Manager --</option>
+              {managers.map((manager) => (
+                <option key={manager.id} value={manager.id}>
+                  {manager.username} - {manager.roleName}
+                </option>
+              ))}
+            </select>
+          </div>
+          */}
+
+          <button type="submit" className="btn btn-success w-100">Register</button>
+        </form>
+        {message && <div className="alert alert-info mt-3 text-center">{message}</div>}
+      </div>
     </div>
   );
 };
+
 export default RegistrationForm;

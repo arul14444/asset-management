@@ -1,7 +1,10 @@
 
+import DashboardForm from "../../component/dashboard/DashboardForm";
+import "./index.css";
+
 let dashboard = () => {
     return(
-        <h1>Dashborad Page</h1>
+        <DashboardForm />
     )
 }
 export default dashboard;
