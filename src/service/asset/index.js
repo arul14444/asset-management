@@ -1,8 +1,14 @@
 import axios from "axios"
 import { API_URL } from "../../url";
 
+const token = sessionStorage.getItem('auth');
+
 export const fetchAllAsset = async () => {
-    const { data } = await axios.get(`${API_URL}/api/asset`);
+    const { data } = await axios.get(`${API_URL}/api/asset`,{
+        headers: {
+            Authorization: `Basic ${token}`
+        }
+    })
     return data;
 }
 
@@ -12,7 +18,11 @@ export const fetchAssetById = async (assetId) => {
 }
 
 export const fetchAssetByStatus = async (statusId) => {
-    const { data } = await axios.get(`${API_URL}/api/asset/status/${statusId}`);
+    const { data } = await axios.get(`${API_URL}/api/asset/status/${statusId}`,{
+        headers: {
+            Authorization: `Basic ${token}`
+        }
+    });
     return data;
 };
 
