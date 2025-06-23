@@ -26,7 +26,7 @@ let router = () => {
           <Route path="regis" element={<Registration />}/>
           <Route path="changePassword" element={<ChangePassword />}/>
           <Route path="updateRole" element={<UpdateRole />}/>
-
+          <Route path="loaning" element={<LoaningRequest/> }></Route>
           <Route path="approver" element={<LoaningApprover />} />
           <Route path="approver2-and-returner" element={<LoaningApprover2AndReturner />} />
           <Route path="borrower" element={<LoaningBorrower />} />
