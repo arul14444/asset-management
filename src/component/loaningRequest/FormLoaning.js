@@ -5,11 +5,13 @@ import { fetchAsset, fetchPostLoaning } from "../../service/loanigRequest";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const FormLoaning = () => {
+  let email = sessionStorage.getItem("email");
+  let name = sessionStorage.getItem("name");
   const queryClient = useQueryClient();
-  let randomCode = sessionStorage.getItem("randomCode")
+  let randomCode = sessionStorage.getItem("randomCode");
   const [formData, setFormData] = useState({
-    name: 'jono',
-    email: 'jono@mail.com',
+    name: name,
+    email: email,
     employee: randomCode,
     asset: '',
     note: ''

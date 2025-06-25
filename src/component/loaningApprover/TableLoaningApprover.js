@@ -9,7 +9,7 @@ DataTable.use(DT);
 
 const TableLoaningApprover = () => {
     const queryClient = useQueryClient();
-    const [filter, setFilter] = useState("all");
+    const [filter, setFilter] = useState("active");
 
     const {
         data: loaningData,
@@ -24,7 +24,7 @@ const TableLoaningApprover = () => {
         try {
             const payload = { id, loanStatusProcess: status };
             await fetchPostApprove(payload);
-            alert(`Loaning has been ${status === 3 ? "approved" : status === 5 ? "rejected" : "returned"} successfully.`);
+            alert(`Loaning has been ${status === 2 ? "approved" : status === 5 ? "rejected" : "returned"} successfully.`);
             queryClient.invalidateQueries(["loaningList"]);
         } catch (err) {
             alert(`Failed to update loaning status.\nReason: ${err?.response?.data?.message || err.message}`);
@@ -38,7 +38,10 @@ const TableLoaningApprover = () => {
                 return loaningData.data.filter(item => item.loaningStatusProcess === "Requested");
             case "inactive":
                 return loaningData.data.filter(item =>
-                    item.loaningStatusProcess === "Rejected" || item.loaningStatusProcess === "Returned"
+                    item.loaningStatusProcess === "Rejected" ||
+                    item.loaningStatusProcess === "Returned"|| 
+                    item.loaningStatusProcess === "Approved by Manager" || 
+                   item.loaningStatusProcess === "Approved by Procurement" 
                 );
             default:
                 return loaningData.data;
@@ -54,14 +57,13 @@ const TableLoaningApprover = () => {
         <div className="container mt-3">
             <h1>Tabel Loaning</h1>
             <div className="mb-3">
-                <Button size="sm" className="me-2" onClick={() => setFilter("all")}>All</Button>
                 <Button size="sm" className="me-2" onClick={() => setFilter("active")}>Active</Button>
                 <Button size="sm" onClick={() => setFilter("inactive")}>Inactive</Button>
             </div>
 
             <div className="table-loaning-approver mt-3">
                 <DataTable
-                    key={filter} // ⬅️ penting untuk memaksa render ulang dan hindari error removeChild
+                    key={filter}
                     className="display table table-bordered"
                     options={{ responsive: true, select: true, destroy: true }}
                 >
@@ -90,7 +92,7 @@ const TableLoaningApprover = () => {
                                 <td>
                                     {item.loaningStatusProcess === "Requested" ? (
                                        <>
-                                            <button className="btn btn-primary me-2" onClick={() => handleAction(item.id, 3)}>Approve</button>
+                                            <button className="btn btn-primary me-2" onClick={() => handleAction(item.id, 2)}>Approve</button>
                                             <button className="btn btn-danger" onClick={() => handleAction(item.id, 5)}>Reject</button>
                                         </>
                                     ): null}

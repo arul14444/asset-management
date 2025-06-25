@@ -1,13 +1,13 @@
 let DashboardForm = () => {
   return (
-    <div className="dashboard-container container py-5">
+    <div className="dashboard-container container d-flex align-items-center justify-content-center">
       <div className="row mb-4">
         <div className="col text-center">
-          <h1 className="dashboard-title">Dashboard Page</h1>
-          <p className="dashboard-subtitle">Welcome to Asset Management System</p>
+          <h1 className="dashboard-title">Welcome to Manasys </h1>
+          <p className="dashboard-subtitle">Asset Management System</p>
         </div>
       </div>
-      <div className="row g-4">
+      {/* <div className="row g-4">
         <div className="col-md-4">
           <div className="card dashboard-card shadow-sm">
             <div className="card-body text-center">
@@ -35,7 +35,7 @@ let DashboardForm = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

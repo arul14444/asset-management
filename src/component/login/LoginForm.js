@@ -61,10 +61,11 @@ let LoginForm = () => {
     if(response){
       
       if (response.status === 'OK' && response.message === 'Login Success') {
-        console.log(response.data);
-        console.log(password);
+        console.log(response);
         sessionStorage.setItem('auth', btoa(response.data.name+':'+password));
         sessionStorage.setItem('randomCode', response.data.randomCode);
+        sessionStorage.setItem('name', response.data.name);
+        sessionStorage.setItem('email', response.data.email);
         sessionStorage.setItem('roles', response.data.roles);
 
         setMessage(response.message);
@@ -100,7 +101,7 @@ let LoginForm = () => {
         </form>
         <div className="text-center mt-3">
           <small>
-            <Link to="/changePassword" className="text-decoration-none">
+            <Link to="/change-password" className="text-decoration-none">
               Forgot password? Change it here
             </Link>
           </small>
