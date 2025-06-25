@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoaningRequest from "./pages/loaningRequest/index";
 import LoaningApprover from "./pages/loaningApprover/index";
 import LoaningApprover2AndReturner from "./pages/loaningApprover2AndReturner/index";
 import LoaningBorrower from "./pages/loaningBorrower";
@@ -13,6 +12,7 @@ import Registration from './pages/registration';
 import ChangePassword from './pages/changePassword';
 import UpdateRole from './pages/updateRole';
 import Dashboard from './pages/dashboard';
+import AssetConditionHistory from "./pages/asset_condition_history";
 
 
 let router = () => {
@@ -32,6 +32,7 @@ let router = () => {
           <Route path="borrower" element={<LoaningBorrower />} />
           <Route path="asset" element={<Asset />} />
           <Route path="assetcondition" element={<AssetCondition />} />
+          <Route path="assetconditionhistory" element={<AssetConditionHistory />} />
         </Route>
       </Routes>
     </BrowserRouter>

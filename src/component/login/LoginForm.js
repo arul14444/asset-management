@@ -64,6 +64,7 @@ let LoginForm = () => {
         console.log(response.data.name);
         console.log(password);
         sessionStorage.setItem('auth', btoa(response.data.name+':'+password));
+        sessionStorage.setItem('randomCode', response.data.randomCode);
         setMessage(response.message);
         navigate("/dashboard");
       } else{
