@@ -1,16 +1,17 @@
-
-import { fetchLoaningList, fetchPostApprove } from "../../service/loaningApprover2AndReturner";
-import React from "react";
+import React, { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchLoaningList, fetchPostApprove } from "../../service/loaningApprover2AndReturner";
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-bs5';
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 DataTable.use(DT);
 
 const TableLoaningApprover2AndReturner = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const [filter, setFilter] = useState("all");
 
   const {
     data: loaningData,
@@ -21,12 +22,28 @@ const TableLoaningApprover2AndReturner = () => {
     queryFn: fetchLoaningList,
   });
 
+  const getFilteredLoanings = () => {
+    if (!loaningData?.data) return [];
+    switch (filter) {
+      case "active":
+        return loaningData.data.filter(item => item.loaningStatusProcess === "Requested");
+      case "inactive":
+        return loaningData.data.filter(item =>
+          item.loaningStatusProcess === "Rejected" || item.loaningStatusProcess === "Returned"
+        );
+      default:
+        return loaningData.data;
+    }
+  };
+
+  const filteredLoanings = getFilteredLoanings();
+
   const handleAction = async (id, status) => {
     try {
       const payload = { id, loanStatusProcess: status, approver: 1 };
       console.log("Sending payload:", payload);
       await fetchPostApprove(payload);
-      alert(`Loaning has been ${status === 2 ? "approved" : "rejected"} successfully.`);
+      alert(`Loaning has been ${status === 3 ? "approved" : "rejected"} successfully.`);
       queryClient.invalidateQueries(["loaningList"]);
     } catch (err) {
       console.error("Action failed:", err);
@@ -43,6 +60,11 @@ const TableLoaningApprover2AndReturner = () => {
   return (
     <div className="table-loaning-approver mt-3">
       <h1>Tabel Loaning</h1>
+      <div className="mb-3">
+        <Button size="sm" className="me-2" onClick={() => setFilter("all")}>All</Button>
+        <Button size="sm" className="me-2" onClick={() => setFilter("active")}>Active</Button>
+        <Button size="sm" onClick={() => setFilter("inactive")}>Inactive</Button>
+      </div>
       <DataTable
         className="display table table-bordered"
         options={{
@@ -63,7 +85,7 @@ const TableLoaningApprover2AndReturner = () => {
           </tr>
         </thead>
         <tbody>
-          {loaningData?.data?.map((item, index) => (
+          {filteredLoanings.map((item, index) => (
             <tr key={item.id}>
               <td>{index + 1}</td>
               <td>{item.assetName ?? "-"}</td>
@@ -78,7 +100,8 @@ const TableLoaningApprover2AndReturner = () => {
               <td>{item.loaningStatusProcess}</td>
               <td>{item.note ?? "-"}</td>
               <td>
-                {item.loaningStatusProcess === "Approved by Procurement" ? (
+                {item.loaningStatusProcess === "Returned" ? null : (
+                  item.loaningStatusProcess === "Approved by Procurement" ? (
                     <button
                       className="btn btn-sm btn-danger"
                       onClick={() => navigate('/assetcondition', {
@@ -90,26 +113,26 @@ const TableLoaningApprover2AndReturner = () => {
                     >
                       Return
                     </button>
-                    ) : (
-                  <>
-                    <button
-                      className="btn btn-primary me-2"
-                      onClick={() => handleAction(item.id, 3)}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleAction(item.id, 5)}
-                    >
-                      Reject
-                    </button>
-                  </>
+                  ) : item.loaningStatusProcess === "Approved by Manager" ? (
+                    <>
+                      <button
+                        className="btn btn-primary me-2"
+                        onClick={() => handleAction(item.id, 3)}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleAction(item.id, 5)}
+                      >
+                        Reject
+                      </button>
+                    </>
+                  ) : null
                 )}
               </td>
             </tr>
           ))}
-
         </tbody>
       </DataTable>
     </div>

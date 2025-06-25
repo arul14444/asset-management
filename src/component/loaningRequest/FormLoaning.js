@@ -6,11 +6,11 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const FormLoaning = () => {
   const queryClient = useQueryClient();
-
+  let randomCode = sessionStorage.getItem("randomCode")
   const [formData, setFormData] = useState({
     name: 'jono',
     email: 'jono@mail.com',
-    employee: '2',
+    employee: randomCode,
     asset: '',
     note: ''
   });
