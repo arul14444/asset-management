@@ -3,8 +3,9 @@
   }
   
   .registration-card {
+    margin-top: 15%;
     width: 100%;
-    max-width: 450px;
+    max-width: 600px;
     border-radius: 1rem;
     background-color: #ffffff;
   }

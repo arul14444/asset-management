@@ -42,17 +42,17 @@ let RegistrationForm = () => {
   };
 
   return (
-    <div className="registration-container d-flex justify-content-center align-items-center vh-100">
+    <div className="registration-container d-flex justify-content-center align-items-center">
       <div className="card p-4 shadow registration-card">
         <h2 className="text-center mb-4">Employee Registration</h2>
         <form onSubmit={submit}>
           <div className="mb-3">
             <label className="form-label">Name:</label>
-            <input type="text" name="name" className="form-control" required />
+            <input type="text" name="name" className="form-control mb-3" required />
           </div>
           <div className="mb-3">
             <label className="form-label">Email:</label>
-            <input type="text" name="email" className="form-control" required />
+            <input type="text" name="email" className="form-control mb-3" required />
           </div>
 
           {/* 
