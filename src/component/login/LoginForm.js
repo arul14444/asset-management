@@ -66,6 +66,7 @@ let LoginForm = () => {
         sessionStorage.setItem('auth', btoa(response.data.name+':'+password));
         sessionStorage.setItem('randomCode', response.data.randomCode);
         sessionStorage.setItem('roles', response.data.roles);
+
         setMessage(response.message);
         navigate("/dashboard");
       } else{

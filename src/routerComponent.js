@@ -18,6 +18,7 @@ import UpdateRole from './pages/updateRole';
 import Dashboard from './pages/dashboard';
 import Unauthorized from "./pages/error/401";
 import Notfound from "./pages/error/404";
+import AssetConditionHistory from "./pages/asset_condition_history";
 
 // Buat instance QueryClient
 const queryClient = new QueryClient();
@@ -47,6 +48,7 @@ let router = () => {
             <Route path="borrower" element={<LoaningBorrower />} />
             <Route path="asset" element={<Asset />} />
             <Route path="assetcondition" element={<AssetCondition />} />
+            <Route path="assetconditionhistory" element={<AssetConditionHistory />} />
           </Route>
           <Route path="error-401" element={<Unauthorized />} />
           <Route index element={<Login />} />
