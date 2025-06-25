@@ -6,9 +6,10 @@ import DT from "datatables.net-bs5";
 import { Button } from "react-bootstrap";
 
 DataTable.use(DT);
-
+let randomCode = sessionStorage.getItem("randomCode")
 const TableLoaningRequester = () => {
     const [filter, setFilter] = useState("all");
+    
 
     const {
         data: loaningData,
@@ -16,7 +17,7 @@ const TableLoaningRequester = () => {
         isLoading,
     } = useQuery({
         queryKey: ["loaningList"],
-        queryFn: () => fetchLoaningList(1),
+        queryFn: () => fetchLoaningList(randomCode),
     });
 
     const getFilteredLoanings = () => {

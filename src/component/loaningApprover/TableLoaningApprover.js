@@ -88,14 +88,12 @@ const TableLoaningApprover = () => {
                                 <td>{item.loaningStatusProcess}</td>
                                 <td>{item.note ?? "-"}</td>
                                 <td>
-                                    {item.loaningStatusProcess === "Approved by Procurement" ? (
-                                        <button className="btn btn-primary" onClick={() => handleAction(item.id, 4)}>Return</button>
-                                    ) : (
-                                        <>
+                                    {item.loaningStatusProcess === "Requested" ? (
+                                       <>
                                             <button className="btn btn-primary me-2" onClick={() => handleAction(item.id, 3)}>Approve</button>
                                             <button className="btn btn-danger" onClick={() => handleAction(item.id, 5)}>Reject</button>
                                         </>
-                                    )}
+                                    ): null}
                                 </td>
                             </tr>
                         ))}
