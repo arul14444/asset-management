@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import TableLoaningApprover from "../../component/loaningApprover/TableLoaningApprover";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./index.css";
-import ApproverNavbar
-    from "../../component/navbar/ApproverNavbar";
+// import ApproverNavbar from "../../component/navbar/ApproverNavbar";
 let LoaningApprover = () => {
     const layout = {
         navbar: [
@@ -24,7 +23,7 @@ let LoaningApprover = () => {
 let Body = () => {
     return (
         <>
-            <ApproverNavbar />
+            {/* <ApproverNavbar /> */}
             <div className="container">
                 <TableLoaningApprover />
             </div>

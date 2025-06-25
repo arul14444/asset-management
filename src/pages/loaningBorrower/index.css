@@ -1,0 +1,18 @@
+.col-no {
+  width: 5%;
+}
+.col-date {
+  width: 20%;
+}
+.col-asset {
+  width: 20%;
+}
+.col-status {
+  width: 20%;
+}
+.col-action {
+  width: 15%;
+}
+.col-notes {
+  width: 20%;
+}

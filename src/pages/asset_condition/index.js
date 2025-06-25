@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchAllPart } from "../../service/part";
 import { saveAllAssetCondition } from "../../service/asset_condition";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Alert, Spinner } from "react-bootstrap";
 
 const AssetCondition = () => {
     const navigate = useNavigate();
@@ -50,7 +51,7 @@ const AssetCondition = () => {
     const handleSubmit = async () => {
         try {
             const payload = {
-                employee: 3,
+                employee: sessionStorage.getItem("randomCode"),
                 components: rows.map((row) => ({
                     parts: parseInt(row.parts),
                     rate: parseInt(row.rate),
@@ -67,8 +68,27 @@ const AssetCondition = () => {
         }
     }
 
-    if (isLoading) return <h1 className="text-center mt-4">Loading...</h1>;
-    if (error) return <h1 className="text-center mt-4 text-danger">Failed to fetch Asset</h1>;
+    if (isLoading) {
+    return (
+        <div className="d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
+        <div className="text-center">
+            <Spinner animation="border" role="status" variant="primary" />
+            <div className="mt-2">Fetching data, please wait...</div>
+        </div>
+        </div>
+    );
+    }
+
+    if (error) {
+    return (
+        <div className="container mt-5">
+        <Alert variant="danger" className="text-center">
+            <h4 className="mb-2">⚠️ Failed to Fetch Asset</h4>
+            <p>Something went wrong while fetching the asset data. Please try again later.</p>
+        </Alert>
+        </div>
+    );
+    }
 
     return (
         <div className="container mt-5">
