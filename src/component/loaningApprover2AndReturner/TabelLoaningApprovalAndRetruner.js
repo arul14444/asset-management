@@ -11,7 +11,8 @@ DataTable.use(DT);
 const TableLoaningApprover2AndReturner = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("active");
+  let randomCode = sessionStorage.getItem("randomCode")
 
   const {
     data: loaningData,
@@ -26,10 +27,12 @@ const TableLoaningApprover2AndReturner = () => {
     if (!loaningData?.data) return [];
     switch (filter) {
       case "active":
-        return loaningData.data.filter(item => item.loaningStatusProcess === "Requested");
+        return loaningData.data.filter(item => item.loaningStatusProcess === "Approved by Manager"||item.loaningStatusProcess === "Approved by Procurement");
       case "inactive":
         return loaningData.data.filter(item =>
-          item.loaningStatusProcess === "Rejected" || item.loaningStatusProcess === "Returned"
+          item.loaningStatusProcess === "Rejected" || 
+          item.loaningStatusProcess === "Returned"|| 
+          item.loaningStatusProcess === "Requested"
         );
       default:
         return loaningData.data;
@@ -40,7 +43,7 @@ const TableLoaningApprover2AndReturner = () => {
 
   const handleAction = async (id, status) => {
     try {
-      const payload = { id, loanStatusProcess: status, approver: 1 };
+      const payload = { id, loanStatusProcess: status, approver: randomCode  };
       console.log("Sending payload:", payload);
       await fetchPostApprove(payload);
       alert(`Loaning has been ${status === 3 ? "approved" : "rejected"} successfully.`);
@@ -61,11 +64,11 @@ const TableLoaningApprover2AndReturner = () => {
     <div className="table-loaning-approver mt-3">
       <h1>Tabel Loaning</h1>
       <div className="mb-3">
-        <Button size="sm" className="me-2" onClick={() => setFilter("all")}>All</Button>
         <Button size="sm" className="me-2" onClick={() => setFilter("active")}>Active</Button>
         <Button size="sm" onClick={() => setFilter("inactive")}>Inactive</Button>
       </div>
       <DataTable
+      key={filter}
         className="display table table-bordered"
         options={{
           responsive: true,

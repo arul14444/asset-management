@@ -39,7 +39,7 @@ let router = () => {
             <Route path="login" element={<Login />} />
             <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="regis" element={<Registration />} />
-            <Route path="changePassword" element={<ChangePassword />} />
+            <Route path="change-password" element={<ChangePassword />} />
             <Route path="updateRole" element={<UpdateRole />} />
             <Route path="loaning" element={<LoaningRequest />} />
             <Route path="approver" element={<LoaningApprover />} />
