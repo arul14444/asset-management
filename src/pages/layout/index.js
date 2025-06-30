@@ -1,14 +1,15 @@
-import { Outlet, Link, Navigate } from "react-router-dom";
-const navigate = Navigate();
+import { Outlet, Link, useNavigate } from "react-router-dom";
 
 const Layout = () => {
+  const navigate = useNavigate();
   let roles = sessionStorage.getItem("roles");
   let name = sessionStorage.getItem("name");
   let email = sessionStorage.getItem("email");
+
   const handleLogout = (e) => {
     e.preventDefault();
     sessionStorage.clear();
-    navigate("/login")
+    navigate("/")
   };
 
   return (<div className="fix-header fix-sidebar card-no-border">
@@ -65,7 +66,7 @@ const Layout = () => {
                     <li><a href="/change-password"><i className="ti-settings"></i> Change Password</a></li>
 
                     <li role="separator" className="divider"></li>
-                    <li><a href="/login" onClick={handleLogout}>
+                    <li><a href="#" onClick={handleLogout}>
                       <i className="fa fa-power-off"></i> Logout
                     </a>
                     </li>
